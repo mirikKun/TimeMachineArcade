@@ -1,0 +1,13 @@
+{
+  "Configs": [
+    {
+      "Id": "accessoryTurbine",
+      "ProductType": 1,
+      "MaxPurchaseCount": "1",
+      "ItemType": 1,
+      "Quantity": 1,
+      "Price": "1.99 $",
+      "Icon": "turbine"
+    }
+  ]
+}
