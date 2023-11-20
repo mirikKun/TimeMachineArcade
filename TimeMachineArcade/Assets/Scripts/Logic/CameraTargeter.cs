@@ -1,13 +1,27 @@
-using Cinemachine;
+
 using UnityEngine;
+using Zenject;
 
 public class CameraTargeter : MonoBehaviour
 {
-    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
+    [SerializeField] private Transform _camera;
+    [SerializeField] private float _cameraZOffset;
+    private Transform _player;
 
-    public void SetupTarget(Transform player)
+
+    [Inject]
+    public void Construct(CarMover player)
     {
-        _virtualCamera.Follow = player;
-        _virtualCamera.LookAt = player;
+        _player = player.transform;
+    }
+
+    private void Update()
+    {
+        SetCameraPosition();
+    }
+
+    private void SetCameraPosition()
+    {
+        _camera.position = new Vector3(_camera.position.x, _camera.position.y, _player.position.z + _cameraZOffset);
     }
 }

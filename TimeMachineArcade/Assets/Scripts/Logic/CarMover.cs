@@ -13,10 +13,14 @@ public class CarMover : MonoBehaviour
     [SerializeField] private float _steerAngle = 50;
     [SerializeField] private float _traction = 0.01f;
     [SerializeField] private float _angleToMinDrag = 60;
-
     [SerializeField] private float _angleToDriftProve = 40f;
     [SerializeField] private float _minSpeedToDrift = 5;
+
+    [SerializeField] private float _xPositionLimit;
+    [SerializeField] private float _rotationLimit;
+
     public event Action OnDrifting;
+    public event Action<float> OnMoving;
     private float _currentDrag;
 
     private Vector3 _moveForce;
@@ -51,12 +55,39 @@ public class CarMover : MonoBehaviour
         _moveForce += GetForwardForce();
         _transform.position += _moveForce * Time.deltaTime;
         _transform.Rotate(GetRotation());
-        FixMoveForce();
+        
+        LimitMoveForce();
+        
+        LimitPosition();
+        LimitRotation();
+        
         _forceAngle = Vector3.Angle(_moveForce.normalized, _transform.forward);
         CalculateDrag(_forceAngle);
     }
 
-    private void FixMoveForce()
+    private void LimitPosition()
+    {
+        Vector3 position = _transform.position;
+        float limitedX = Mathf.Clamp(position.x,-_xPositionLimit,_xPositionLimit);
+        position = new Vector3(limitedX, position.y, position.z);
+        _transform.position = position;
+    }
+
+    private void LimitRotation()
+    {
+        Vector3 rotation = _transform.eulerAngles;
+        float yRotation = rotation.y;
+        if (yRotation> 180)
+        {
+            yRotation -= 360;
+        }
+        float limitedYRotation = Mathf.Clamp(yRotation,-_rotationLimit,_rotationLimit);
+
+        rotation = new Vector3(rotation.x, limitedYRotation, rotation.z);
+        _transform.eulerAngles = rotation;
+    }
+
+    private void LimitMoveForce()
     {
         _moveForce *= _currentDrag;
         _moveForce = Vector3.ClampMagnitude(_moveForce, _maxSpeed);
@@ -97,6 +128,11 @@ public class CarMover : MonoBehaviour
 
     private Vector3 GetForwardForce()
     {
-        return transform.forward * (_moveSpeed * _input.GasInput * Time.deltaTime);
+        Vector3 forwardForce = transform.forward * (_moveSpeed * _input.GasInput * Time.deltaTime);
+        if (forwardForce.z > 0)
+        {
+            OnMoving?.Invoke(transform.position.z);
+        }
+        return forwardForce;
     }
 }

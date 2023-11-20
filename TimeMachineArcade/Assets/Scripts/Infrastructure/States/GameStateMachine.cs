@@ -20,7 +20,7 @@ namespace Infrastructure.States
             {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
                 [typeof(LoadProgressState)] = new LoadProgressState(this, progressService, saveLoadService),
-                [typeof(LoadRoomSceneState)] = new LoadRoomSceneState(this, sceneLoader, curtain),
+                [typeof(LoadHubSceneState)] = new LoadHubSceneState(this, sceneLoader, curtain),
                 [typeof(LoadLevelSceneState)] = new LoadLevelSceneState(this, sceneLoader, curtain),
                 [typeof(GameLoopState)] = new GameLoopState(this),
                 [typeof(RoomLoopState)] = new RoomLoopState(this),

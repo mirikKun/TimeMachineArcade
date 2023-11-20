@@ -12,7 +12,6 @@ namespace Infrastructure.Installers
         [SerializeField] private GameEndReward _gameEndReward;
 
         [SerializeField] private Transform _spawnPoint;
-        [SerializeField] private CameraTargeter _cameraTargeter;
         private IGameFactory _gameFactory;
         
         [Inject]
@@ -47,8 +46,6 @@ namespace Infrastructure.Installers
         private CarMover BindPlayer()
         {
             GameObject car = _gameFactory.CreatePlayer(_spawnPoint);
-            _cameraTargeter.SetupTarget(car.transform);
-            
             CarMover carMover = car.GetComponent<CarMover>();
             Container
                 .Bind<CarMover>()

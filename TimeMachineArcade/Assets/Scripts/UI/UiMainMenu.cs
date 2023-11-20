@@ -9,7 +9,6 @@ namespace UI
         [SerializeField] private Button _openRoomButton;
         [SerializeField] private Button _exitButton;
         [SerializeField] private Button _startSingleButton;
-        [SerializeField] private Button _startOnlineButton;
         [SerializeField] private Button _openShopButton;
         [SerializeField] private Button _settingsShopButton;
 
@@ -24,7 +23,6 @@ namespace UI
         private void Start()
         {
             _startSingleButton.onClick.AddListener(_mediator.OpenSingleLevel);
-            _startOnlineButton.onClick.AddListener(_mediator.ConnectToServer);
             _openRoomButton.onClick.AddListener(_mediator.OpenRoomPanel);
             _openShopButton.onClick.AddListener(_mediator.OpenShopPanel);
             _settingsShopButton.onClick.AddListener(_mediator.OpenSettingsPanel);

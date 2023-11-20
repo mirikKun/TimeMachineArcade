@@ -27,7 +27,7 @@ public class GameSingleLevelMediator:MonoBehaviour,IGameMediator
 
     public void OpenPauseMenu() => _panelsSwitch.OpenPanel(_pausePanel);
     public void OpenGameEndPanel() => _panelsSwitch.OpenPanel(_gameEndPanel);
-    public void GoToRoomScene() => _stateMachine.Enter<LoadRoomSceneState>();
+    public void GoToRoomScene() => _stateMachine.Enter<LoadHubSceneState>();
     public void OpenPreviousPanel() => _panelsSwitch.Back();
     public void Restart()
     {

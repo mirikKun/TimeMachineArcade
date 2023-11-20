@@ -44,6 +44,5 @@ namespace UI
             _carCustomizationView.UpdateButtons();
         }
 
-        public void ConnectToServer() => _gameStateMachine.Enter<LoadServerLoadingSceneState>();
     }
 }

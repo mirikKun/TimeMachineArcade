@@ -2,7 +2,6 @@
 {
     public class BootstrapState : IState
     {
-        private const string Boot = "Boot";
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
 
@@ -14,7 +13,7 @@
 
         public void Enter()
         {
-            _sceneLoader.Load(Boot, onLoaded: EnterLoadLevel);
+            _sceneLoader.Load(InfrastructureAssetPath.BootScene, onLoaded: EnterLoadLevel);
         }
 
         private void EnterLoadLevel() =>

@@ -4,7 +4,7 @@ namespace Infrastructure.States
 {
     public class LoadLevelSceneState : IState
     {
-        private const string MainLevel = "LevelSingle";
+        private const string MainLevel = InfrastructureAssetPath.GameLevel1Scene;
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _curtain;

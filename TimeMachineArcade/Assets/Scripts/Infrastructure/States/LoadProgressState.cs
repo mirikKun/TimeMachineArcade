@@ -35,7 +35,7 @@ namespace Infrastructure.States
     public void Enter()
     {
       LoadProgressOrInitNew();
-      _gameStateMachine.Enter<LoadRoomSceneState>();
+      _gameStateMachine.Enter<LoadHubSceneState>();
     }
 
     public void Exit()
