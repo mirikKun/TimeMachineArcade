@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class Rotator : MonoBehaviour
+namespace Logic
 {
-    [SerializeField] private Vector3 _axis;
-    [SerializeField] private float _speed=8;
-
-    private Transform _transform;
-    private void Start()
+    public class Rotator : MonoBehaviour
     {
-        _transform = transform;
-    }
+        [SerializeField] private Vector3 _axis;
+        [SerializeField] private float _speed=8;
 
-    private void Update()
-    {
-        _transform.Rotate(_axis,_speed*Time.deltaTime);
+        private Transform _transform;
+        private void Start()
+        {
+            _transform = transform;
+        }
+
+        private void Update()
+        {
+            _transform.Rotate(_axis,_speed*Time.deltaTime);
+        }
     }
 }

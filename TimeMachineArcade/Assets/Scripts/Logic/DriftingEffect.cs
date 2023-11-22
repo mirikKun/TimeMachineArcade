@@ -1,34 +1,36 @@
-using System;
 using UnityEngine;
 
-public class DriftingEffect:MonoBehaviour
+namespace Logic
 {
-    [SerializeField] private ParticleSystem _particleSystem;
-
-    [SerializeField] private float _rate=3;
-    private float _time;
-
-    private bool _ready=true;
-
-    private void Update()
+    public class DriftingEffect:MonoBehaviour
     {
-        if(!_ready)
+        [SerializeField] private ParticleSystem _particleSystem;
+
+        [SerializeField] private float _rate=3;
+        private float _time;
+
+        private bool _ready=true;
+
+        private void Update()
         {
-            _time += Time.deltaTime * _rate;
-            if (_time > 1)
+            if(!_ready)
             {
-                _ready = true;
-                _time = 0;
+                _time += Time.deltaTime * _rate;
+                if (_time > 1)
+                {
+                    _ready = true;
+                    _time = 0;
+                }
             }
         }
-    }
 
-    public void EnableEffect()
-    {
-        if (_ready)
+        public void EnableEffect()
         {
-            _particleSystem.Play();
-            _ready = false;
+            if (_ready)
+            {
+                _particleSystem.Play();
+                _ready = false;
+            }
         }
     }
 }

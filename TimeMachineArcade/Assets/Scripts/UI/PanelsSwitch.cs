@@ -1,38 +1,40 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PanelsSwitch
+namespace UI
 {
-    private Stack<GameObject> _openedPanels;
-    private GameObject _activePanel;
-
-    public PanelsSwitch(GameObject startPanel)
+    public class PanelsSwitch
     {
-        _openedPanels = new Stack<GameObject>();
-        _openedPanels.Push(startPanel);
+        private Stack<GameObject> _openedPanels;
+        private GameObject _activePanel;
 
-        SetPanelActive(startPanel);
-    }
+        public PanelsSwitch(GameObject startPanel)
+        {
+            _openedPanels = new Stack<GameObject>();
+            _openedPanels.Push(startPanel);
 
-    public void OpenPanel(GameObject panel)
-    {
-        _openedPanels.Push(_activePanel);
-        _activePanel.SetActive(false);
+            SetPanelActive(startPanel);
+        }
 
-        SetPanelActive(panel);
-    }
+        public void OpenPanel(GameObject panel)
+        {
+            _openedPanels.Push(_activePanel);
+            _activePanel.SetActive(false);
 
-    public void Back()
-    {
-        _activePanel.SetActive(false);
-        GameObject previousPanel = _openedPanels.Pop();
-        SetPanelActive(previousPanel);
-    }
+            SetPanelActive(panel);
+        }
 
-    private void SetPanelActive(GameObject panel)
-    {
-        _activePanel = panel;
-        _activePanel.SetActive(true);
+        public void Back()
+        {
+            _activePanel.SetActive(false);
+            GameObject previousPanel = _openedPanels.Pop();
+            SetPanelActive(previousPanel);
+        }
+
+        private void SetPanelActive(GameObject panel)
+        {
+            _activePanel = panel;
+            _activePanel.SetActive(true);
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.Generators
+namespace Logic.Generators
 {
     public class ContentGenerator
     {
@@ -25,9 +25,7 @@ namespace DefaultNamespace.Generators
 
         public void GenerateContent(Transform plane, float planeLenght)
         {
-            Debug.Log("_________");
-            Debug.Log(_curPoint);
-            Debug.Log(plane.position.z+planeLenght/2);
+
             while (_curPoint<plane.position.z+planeLenght/2)
             {
                 float randomScale = Random.Range(_minSize, _maxSize);

@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace DefaultNamespace
+namespace Infrastructure.Services.Input
 {
     public interface IInput
     {

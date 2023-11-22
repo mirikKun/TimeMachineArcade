@@ -1,8 +1,8 @@
-using DefaultNamespace;
+using Logic;
 using UnityEngine;
 using Zenject;
 
-namespace UI
+namespace Infrastructure.Installers
 {
     public class InputInstaller : MonoInstaller
     {

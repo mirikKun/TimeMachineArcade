@@ -1,16 +1,19 @@
-public class  PointsCounter
+namespace Logic
 {
-    public float CurrentPoints { get; private set; }
-    private readonly float _pointsPerSecond;
-
-    public PointsCounter(float pointsPerSecond)
+    public class  PointsCounter
     {
-        _pointsPerSecond = pointsPerSecond;
-        CurrentPoints = 0;
-    }
+        public float CurrentPoints { get; private set; }
+        private readonly float _pointsPerSecond;
 
-    public void AddDriftingPoints(float deltaTime)
-    {
-        CurrentPoints += deltaTime * _pointsPerSecond;
+        public PointsCounter(float pointsPerSecond)
+        {
+            _pointsPerSecond = pointsPerSecond;
+            CurrentPoints = 0;
+        }
+
+        public void AddDriftingPoints(float deltaTime)
+        {
+            CurrentPoints += deltaTime * _pointsPerSecond;
+        }
     }
 }

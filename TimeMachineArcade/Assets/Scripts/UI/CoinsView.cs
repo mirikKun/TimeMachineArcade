@@ -3,31 +3,34 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class CoinsView : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI _number;
-    private IPersistentProgressService _progressService;
-
-    [Inject]
-    private void Construct(IPersistentProgressService progressService)
+    public class CoinsView : MonoBehaviour
     {
-        _progressService = progressService;
-    }
+        [SerializeField] private TextMeshProUGUI _number;
+        private IPersistentProgressService _progressService;
 
-    private void Start()
-    {
-        UpdateText();
-        _progressService.PlayerData.MoneyData.Changed += UpdateText;
-    }
+        [Inject]
+        private void Construct(IPersistentProgressService progressService)
+        {
+            _progressService = progressService;
+        }
 
-    private void OnDestroy()
-    {
-        if (_progressService.PlayerData != null)
-            _progressService.PlayerData.MoneyData.Changed -= UpdateText;
-    }
+        private void Start()
+        {
+            UpdateText();
+            _progressService.PlayerData.MoneyData.Changed += UpdateText;
+        }
 
-    private void UpdateText()
-    {
-        _number.text = _progressService.PlayerData.MoneyData._coins.ToString();
+        private void OnDestroy()
+        {
+            if (_progressService.PlayerData != null)
+                _progressService.PlayerData.MoneyData.Changed -= UpdateText;
+        }
+
+        private void UpdateText()
+        {
+            _number.text = _progressService.PlayerData.MoneyData._coins.ToString();
+        }
     }
 }

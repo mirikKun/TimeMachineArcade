@@ -1,8 +1,9 @@
+using UI.Mediators;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace UI
+namespace UI.Panels
 {
     public class UiCustomizationPanel : MonoBehaviour
     {

@@ -1,27 +1,29 @@
-
 using UnityEngine;
 using Zenject;
 
-public class CameraTargeter : MonoBehaviour
+namespace Logic
 {
-    [SerializeField] private Transform _camera;
-    [SerializeField] private float _cameraZOffset;
-    private Transform _player;
-
-
-    [Inject]
-    public void Construct(CarMover player)
+    public class CameraTargeter : MonoBehaviour
     {
-        _player = player.transform;
-    }
+        [SerializeField] private Transform _camera;
+        [SerializeField] private float _cameraZOffset;
+        private Transform _player;
 
-    private void Update()
-    {
-        SetCameraPosition();
-    }
 
-    private void SetCameraPosition()
-    {
-        _camera.position = new Vector3(_camera.position.x, _camera.position.y, _player.position.z + _cameraZOffset);
+        [Inject]
+        public void Construct(CarMover player)
+        {
+            _player = player.transform;
+        }
+
+        private void Update()
+        {
+            SetCameraPosition();
+        }
+
+        private void SetCameraPosition()
+        {
+            _camera.position = new Vector3(_camera.position.x, _camera.position.y, _player.position.z + _cameraZOffset);
+        }
     }
 }

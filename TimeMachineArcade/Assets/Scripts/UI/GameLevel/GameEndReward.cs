@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace UI
+namespace UI.GameLevel
 {
     public class GameEndReward : MonoBehaviour
     {

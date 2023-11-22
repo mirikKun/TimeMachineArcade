@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DefaultNamespace.Generators
+namespace Logic.Generators
 {
     public class WallsGenerator
     {

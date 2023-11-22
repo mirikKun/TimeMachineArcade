@@ -1,8 +1,9 @@
 using Infrastructure.States;
+using UI.Custmization;
 using UnityEngine;
 using Zenject;
 
-namespace UI
+namespace UI.Mediators
 {
     public class RoomMediator : MonoBehaviour
     {

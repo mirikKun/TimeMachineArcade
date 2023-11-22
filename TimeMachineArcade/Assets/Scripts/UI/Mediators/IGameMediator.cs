@@ -1,4 +1,4 @@
-namespace UI
+namespace UI.Mediators
 {
     interface IGameMediator
     {

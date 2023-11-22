@@ -1,29 +1,29 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Popup : MonoBehaviour
+namespace UI
 {
-   [SerializeField] private GameObject _popupObject;
-   [SerializeField] private TextMeshProUGUI _popupText;
-   [SerializeField] private Button _button;
-
-   private void Start()
+   public class Popup : MonoBehaviour
    {
-      _button.onClick.AddListener(ClosePopup);
-   }
+      [SerializeField] private GameObject _popupObject;
+      [SerializeField] private TextMeshProUGUI _popupText;
+      [SerializeField] private Button _button;
 
-   public void OpenPopup(string message)
-   {
-      _popupText.text = message;
-      _popupObject.SetActive(true);
-   }
+      private void Start()
+      {
+         _button.onClick.AddListener(ClosePopup);
+      }
 
-   private void ClosePopup()
-   {
-      _popupObject.SetActive(false);
+      public void OpenPopup(string message)
+      {
+         _popupText.text = message;
+         _popupObject.SetActive(true);
+      }
+
+      private void ClosePopup()
+      {
+         _popupObject.SetActive(false);
+      }
    }
 }

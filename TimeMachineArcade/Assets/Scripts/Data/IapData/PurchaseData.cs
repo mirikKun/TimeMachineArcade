@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CodeBase.Data
+namespace Data.IapData
 {
   [Serializable]
   public class PurchaseData

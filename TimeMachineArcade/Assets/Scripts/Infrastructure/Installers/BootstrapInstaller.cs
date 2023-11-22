@@ -1,13 +1,13 @@
-using DefaultNamespace;
 using Infrastructure.AssetManagement;
 using Infrastructure.Fabric;
 using Infrastructure.Logic;
+using Infrastructure.Services.Input;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.SaveLoad;
 using Infrastructure.States;
 using UnityEngine;
 using Zenject;
-using AndroidInput = DefaultNamespace.AndroidInput;
+using AndroidInput = Infrastructure.Services.Input.AndroidInput;
 
 namespace Infrastructure.Installers
 {

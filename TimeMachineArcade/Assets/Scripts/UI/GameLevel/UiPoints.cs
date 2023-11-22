@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UiPoints : MonoBehaviour
+namespace UI.GameLevel
 {
-    [SerializeField] private TextMeshProUGUI _pointsText;
-
-    public void UpdatePointsText(float currentPoints)
+    public class UiPoints : MonoBehaviour
     {
-        _pointsText.text = ((int)currentPoints).ToString();
+        [SerializeField] private TextMeshProUGUI _pointsText;
+
+        public void UpdatePointsText(float currentPoints)
+        {
+            _pointsText.text = ((int)currentPoints).ToString();
+        }
     }
 }

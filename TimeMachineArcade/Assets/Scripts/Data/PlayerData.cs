@@ -1,5 +1,5 @@
 using System;
-using CodeBase.Data;
+using Data.IapData;
 
 namespace Data
 {

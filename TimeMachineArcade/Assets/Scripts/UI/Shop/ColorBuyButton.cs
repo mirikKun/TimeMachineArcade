@@ -2,7 +2,8 @@ using Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-namespace UI
+
+namespace UI.Shop
 {
     public class ColorBuyButton:MonoBehaviour
     {

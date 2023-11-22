@@ -1,7 +1,4 @@
-using UnityEngine;
-using Zenject;
-
-namespace DefaultNamespace
+namespace Infrastructure.Services.Input
 {
     public class AndroidInput : IInput
     {

@@ -2,7 +2,7 @@ using Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace UI.Custmization
 {
     public class AccessoriesChooseButton:MonoBehaviour
     {

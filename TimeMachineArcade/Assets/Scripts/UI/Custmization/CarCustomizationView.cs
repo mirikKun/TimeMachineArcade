@@ -2,11 +2,12 @@ using Data;
 using Infrastructure.AssetManagement;
 using Infrastructure.Services.PersistentProgress;
 using Infrastructure.Services.SaveLoad;
+using UI.Mediators;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace UI
+namespace UI.Custmization
 {
     public class CarCustomizationView : MonoBehaviour
     {
