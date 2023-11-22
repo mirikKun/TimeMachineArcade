@@ -1,5 +1,4 @@
 using System;
-using Data.IapData;
 
 namespace Data
 {
@@ -11,7 +10,6 @@ namespace Data
         public PointsData PointsData;
         public MoneyData MoneyData;
 
-        public PurchaseData PurchaseData;
         public PlayerData()
         {
             CustomCarData = new();

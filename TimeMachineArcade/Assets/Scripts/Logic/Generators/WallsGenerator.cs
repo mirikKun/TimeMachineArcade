@@ -1,27 +1,25 @@
+using Logic.Generators.Data;
 using UnityEngine;
-
 namespace Logic.Generators
 {
     public class WallsGenerator
     {
-        private Transform _wallPrefab;
+        private SettingObjectsData _settingObjectsData;
         private readonly float _planeWidth;
-        private readonly float _miSize;
-        private readonly float _maxSize;
+
         private readonly float _spread;
         
         private float _leftLastPoint;
         private float _rightLastPoint;
         
         
-        public WallsGenerator(Transform wallPrefab,float planeWidth, float start,float miSize,float maxSize,float spread)
+        public WallsGenerator(SettingObjectsData settingObjectsData,float planeWidth, float start,float spread)
         {
-            _wallPrefab = wallPrefab;
+            _settingObjectsData = settingObjectsData;
             _planeWidth = planeWidth;
             _leftLastPoint = start;
             _rightLastPoint = start;
-            _miSize = miSize;
-            _maxSize = maxSize;
+    
             _spread = spread;
         }
 
@@ -29,27 +27,40 @@ namespace Logic.Generators
         {
             while (_leftLastPoint-plane.position.z<planeLenght/2)
             {
-                float nextSize = Random.Range(_miSize, _maxSize);
-                _leftLastPoint += nextSize;
-                CreateWall(plane, nextSize,_leftLastPoint,-1);
+                Wall wall = GetRandomWallObject();
+                float wallLenght=CreateWall(plane, wall,_leftLastPoint,-1);
+                _leftLastPoint += wallLenght;
+
             }
+            
+            
             while (_rightLastPoint-plane.position.z<planeLenght/2)
             {
-                float nextSize = Random.Range(_miSize, _maxSize);
-                _rightLastPoint += nextSize;
-                CreateWall(plane, nextSize,_rightLastPoint,1);
+                Wall wall = GetRandomWallObject();
+                float wallLenght=CreateWall(plane, wall,_rightLastPoint,1);
+                _rightLastPoint += wallLenght;
+
             }
         }
 
-        private void CreateWall(Transform plane, float nextSize,float lastPoint,int sign)
+        private Wall GetRandomWallObject()
         {
-            float x = plane.position.x + sign*(_planeWidth + nextSize / 2f+Random.Range(0,_spread));
-            float y = plane.position.y + nextSize / 2f;
-            float z = lastPoint-nextSize/2;
+            int index = Random.Range(0, _settingObjectsData.Walls.Length);
+            Wall wall = _settingObjectsData.Walls[index];
+            return wall;
+        }
+
+        private float CreateWall(Transform plane, Wall wallPrefab,float lastPoint,int sign)
+        {
             
-            Vector3 position = new Vector3(x, y, z);
-            Transform wall = Object.Instantiate(_wallPrefab, position, Quaternion.identity, plane);
-            wall.localScale = Vector3.one * nextSize;
+            Wall wall = Object.Instantiate(wallPrefab,plane);
+            wall.SetRandomRotation();
+            
+            float x = plane.position.x + sign*(_planeWidth + wall.Size.x / 2f+Random.Range(0,_spread));
+            float z = lastPoint+wall.Size.y/2;
+            Vector3 position = new Vector3(x, 0, z);
+            wall.SetPosition(position);
+            return wall.Size.y;
         }
     }
 }

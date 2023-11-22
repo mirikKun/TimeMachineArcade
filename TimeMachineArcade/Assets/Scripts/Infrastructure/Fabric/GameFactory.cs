@@ -8,8 +8,7 @@ namespace Infrastructure.Fabric
     {
         private readonly IAssetProvider _assets;
         private GameObject _playerGameObject;
-        private readonly string _playerPath= "PlayerCar";
-        private readonly string _playerOnlinePath= "PlayerCarOnline";
+        private readonly string _playerPath= InfrastructureAssetPath.PlayerCarPrefab;
         private DiContainer _diContainer;
         [Inject]
         public GameFactory(DiContainer diContainer,IAssetProvider assets)
