@@ -4,20 +4,26 @@ namespace Logic
 {
     public class  CoinsCounter
     {
-        public int CurrentCoins { get; private set; }
+        public int ActualCurrentCoins { get; private set; }
+        public int CurrentCoinsForVisual { get; private set; }
 
         public event Action<int> OnChanged;
 
         public void ResetCoins()
         {
-            CurrentCoins = 0;
-            OnChanged?.Invoke(CurrentCoins);
+            ActualCurrentCoins = 0;
+            CurrentCoinsForVisual = 0;
+            OnChanged?.Invoke(ActualCurrentCoins);
         }
 
-        public void AddCoins(int coins)
+        public void AddVisualCoins(int coins)
         {
-            CurrentCoins += coins;
-            OnChanged?.Invoke(CurrentCoins);
+            CurrentCoinsForVisual += coins;
+            OnChanged?.Invoke(CurrentCoinsForVisual);
+        }
+        public void AddActualCoins(int coins)
+        {
+            ActualCurrentCoins += coins;
         }
     }
 }

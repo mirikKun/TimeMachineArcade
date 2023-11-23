@@ -22,8 +22,8 @@ namespace Logic
         [SerializeField] private float _xPositionLimit;
         [SerializeField] private float _rotationLimit;
 
-        public event Action OnDrifting;
-        public event Action<int,Vector3> OnObstacleHit;
+        public bool _drifting;
+        public event Action<int,Vector3,bool> OnObstacleHit;
         public event Action<float> OnMoving;
         private float _currentDrag;
 
@@ -57,7 +57,7 @@ namespace Logic
         public void OperateHit(float acceleration,int coins,Vector3 position)
         {
             Accelerate(acceleration);
-            OnObstacleHit?.Invoke(coins,position);
+            OnObstacleHit?.Invoke(coins,position,_drifting);
         }
         private void Accelerate(float acceleration)
         {
@@ -131,8 +131,12 @@ namespace Logic
         {
             if (forceAngle > _angleToDriftProve && _moveForce.magnitude > _minSpeedToDrift)
             {
-                OnDrifting?.Invoke();
+                _drifting = true;
                 _driftingEffect.EnableEffect();
+            }
+            else
+            {
+                _drifting = false;
             }
         }
 

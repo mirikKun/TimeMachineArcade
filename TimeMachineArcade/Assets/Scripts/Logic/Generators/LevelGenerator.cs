@@ -111,7 +111,7 @@ namespace Logic.Generators
             for (int i = 0; i < _placedPlanes.Count; i++)
             {
                 var plane = _placedPlanes[i];
-                if (plane.Position().z <= currentPosition - _obstacleGenerationStart / 2)
+                if (plane.Position().z <= currentPosition - _obstacleGenerationStart)
                 {
                     _placedPlanes.Remove(plane);
                     i--;

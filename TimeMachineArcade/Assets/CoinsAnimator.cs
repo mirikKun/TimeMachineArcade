@@ -48,7 +48,7 @@ public class CoinsAnimator : MonoBehaviour
                 .OnComplete((() =>
                 {
                     _coinsPool.RevertToPool(coin);
-                    _coinsCounter.AddCoins(1);
+                    _coinsCounter.AddVisualCoins(1);
                 }));
         }
     }

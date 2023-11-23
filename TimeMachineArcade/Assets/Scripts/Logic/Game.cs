@@ -71,9 +71,14 @@ namespace Logic
          _uiTimer.UpdateTimer(_currentTime);
       }
 
-      private void OnObstacleHit(int coins, Vector3 position)
+      private void OnObstacleHit(int coins, Vector3 position,bool drifting)
       {
+         if (drifting)
+         {
+            coins *=2;
+         }
          _coinsAnimator.PlayCoinsAnimation(coins,position);
+         _coinsCounter.AddActualCoins(coins); 
       }
  
       public void ResetGame()
@@ -92,7 +97,7 @@ namespace Logic
          _currentTime = _totalSecondsTime;
          _timeEnded = true;
          _mediator.OpenGameEndPanel();
-         _gameEndReward.InitializeReward((int)_coinsCounter.CurrentCoins);
+         _gameEndReward.InitializeReward(_coinsCounter.ActualCurrentCoins);
       }
    }
 }
