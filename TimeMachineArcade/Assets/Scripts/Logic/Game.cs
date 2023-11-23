@@ -1,3 +1,4 @@
+using Logic.Generators;
 using UI.GameLevel;
 using UI.Mediators;
 using UnityEngine;
@@ -20,11 +21,13 @@ namespace Logic
       private float _currentTime;
       private bool _timeEnded;
       private GameEndReward _gameEndReward;
+      private LevelGenerator _levelGenerator;
 
       [Inject]
-      private void Construct(IGameMediator mediator,GameEndReward gameEndReward)
+      private void Construct(IGameMediator mediator,GameEndReward gameEndReward,LevelGenerator levelGenerator)
       {
          _mediator = mediator;
+         _levelGenerator = levelGenerator;
          _gameEndReward = gameEndReward;
       }
 
@@ -71,7 +74,7 @@ namespace Logic
          _uiTimer.UpdateTimer(_currentTime);
          _uiPoints.UpdatePointsText(_pointsCounter.CurrentPoints);
 
-
+         _levelGenerator.ResetAll();
       }
       private void EndGame()
       {

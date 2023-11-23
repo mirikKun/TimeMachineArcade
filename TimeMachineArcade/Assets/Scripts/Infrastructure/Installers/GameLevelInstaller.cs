@@ -1,5 +1,6 @@
 using Infrastructure.Fabric;
 using Logic;
+using Logic.Generators;
 using UI;
 using UI.GameLevel;
 using UI.Mediators;
@@ -11,6 +12,7 @@ namespace Infrastructure.Installers
     public class GameLevelInstaller:MonoInstaller
     {
         [SerializeField] private Game _game;
+        [SerializeField] private LevelGenerator _levelGenerator;
         [SerializeField] private GameSingleLevelMediator _mediator;
         [SerializeField] private GameEndReward _gameEndReward;
 
@@ -26,6 +28,8 @@ namespace Infrastructure.Installers
         {
             BindGameEndRewarder();
             CarMover carMover = BindPlayer();
+            BindLevelGenerator();
+
             BindGame(carMover);
             BindMediator();
         }
@@ -63,6 +67,14 @@ namespace Infrastructure.Installers
                 .FromInstance(_mediator)
                 .AsSingle();
             Container.Bind<IGameMediator>().FromInstance(_mediator);
+
+        }
+        private void BindLevelGenerator()
+        {
+            Container
+                .Bind<LevelGenerator>()
+                .FromInstance(_levelGenerator)
+                .AsSingle();
 
         }
     }

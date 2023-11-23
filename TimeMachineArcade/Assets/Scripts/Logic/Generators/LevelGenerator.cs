@@ -12,9 +12,9 @@ namespace Logic.Generators
         [SerializeField] private Transform _startOfLevelPoint;
         [SerializeField] private float _obstacleGenerationStart = 100;
         [SerializeField] private float _preGenerationStartLenght = 20;
-        [SerializeField] private float _wallSpread = 0.3f;
+        [SerializeField] private float _wallSpread = 0.5f;
         [SerializeField] private float _wallOffset = 0.5f;
-        [SerializeField] private float _obstaclesSpawnRate = 3;
+        [SerializeField] private float _obstaclesSpawnRate = 7;
         [SerializeField] private float _obstaclesSpread = 0.4f;
         [SerializeField] private float _aheadLenghtOfGeneration = 80;
         [SerializeField] private float _objectsSpawnRange = 7;
@@ -24,7 +24,7 @@ namespace Logic.Generators
         private int _lastPlaneIndex = -1;
         private float _currentLevelThreshold;
         private Vector3 _lastPlanePoint;
-        private WallsGenerator _cubeWallsGenerator;
+        private WallsGenerator _wallsGenerator;
 
         private ContentGenerator _contentGenerator;
 
@@ -36,21 +36,17 @@ namespace Logic.Generators
             carMover.OnMoving += UpdateLevelGeneration;
         }
 
-        private void Start()
-        {
-            InitGenerators();
-            InitialGeneration();
-        }
 
         private void InitGenerators()
         {
-            _cubeWallsGenerator = new WallsGenerator(_cityObjectsData, _objectsSpawnRange + _wallOffset,
+            _wallsGenerator = new WallsGenerator(_cityObjectsData, _objectsSpawnRange + _wallOffset,
                 _startOfLevelPoint.position.z - _preGenerationStartLenght, _wallSpread);
             _contentGenerator = new ContentGenerator(_startOfLevelPoint.position.z + _obstacleGenerationStart / 4, _obstaclesSpawnRate, _obstaclesSpread);
         }
 
         private void InitialGeneration()
         {
+            _lastPlaneIndex = -1;
             _lastPlanePoint = _startOfLevelPoint.position;
             _lastPlanePoint.z -= _preGenerationStartLenght;
             _currentLevelThreshold = _lastPlanePoint.z;
@@ -88,11 +84,27 @@ namespace Logic.Generators
         private void SpawnPlane(Plane planePrefab)
         {
             Plane plane = Instantiate(planePrefab, _lastPlanePoint, Quaternion.identity);
-            _cubeWallsGenerator.GenerateWallsForPlane(plane);
+           Debug.Log(plane);
+           Debug.Log(_wallsGenerator);
+            _wallsGenerator.GenerateWallsForPlane(plane);
             _contentGenerator.GenerateContent(plane);
             _placedPlanes.Add(plane);
         }
 
+        public void ResetAll()
+        {
+            for (int i = 0; i < _placedPlanes.Count; i++)
+            {
+                var plane = _placedPlanes[i];
+               
+                _placedPlanes.Remove(plane);
+                i--;
+                Destroy(plane.gameObject);
+                
+            }
+            InitGenerators();
+            InitialGeneration();
+        }
 
         private void ClearPastPlanes(float currentPosition)
         {
