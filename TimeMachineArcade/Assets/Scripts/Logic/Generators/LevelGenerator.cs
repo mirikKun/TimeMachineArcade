@@ -10,7 +10,8 @@ namespace Logic.Generators
         [SerializeField] private SettingObjectsData _cityObjectsData;
 
         [SerializeField] private Transform _startOfLevelPoint;
-        [SerializeField] private float _generationStartLenght = 100;
+        [SerializeField] private float _obstacleGenerationStart = 100;
+        [SerializeField] private float _preGenerationStartLenght = 20;
         [SerializeField] private float _wallSpread = 0.3f;
         [SerializeField] private float _wallOffset = 0.5f;
         [SerializeField] private float _obstaclesSpawnRate = 3;
@@ -20,7 +21,7 @@ namespace Logic.Generators
         private float _obstaclesAppearingRate;
 
 
-        private int _lastPlaneIndex = 0;
+        private int _lastPlaneIndex = -1;
         private float _currentLevelThreshold;
         private Vector3 _lastPlanePoint;
         private WallsGenerator _cubeWallsGenerator;
@@ -44,14 +45,14 @@ namespace Logic.Generators
         private void InitGenerators()
         {
             _cubeWallsGenerator = new WallsGenerator(_cityObjectsData, _objectsSpawnRange + _wallOffset,
-                _startOfLevelPoint.position.z - _generationStartLenght / 2, _wallSpread);
-            _contentGenerator = new ContentGenerator(_startOfLevelPoint.position.z + _generationStartLenght / 4, _obstaclesSpawnRate, _obstaclesSpread);
+                _startOfLevelPoint.position.z - _preGenerationStartLenght, _wallSpread);
+            _contentGenerator = new ContentGenerator(_startOfLevelPoint.position.z + _obstacleGenerationStart / 4, _obstaclesSpawnRate, _obstaclesSpread);
         }
 
         private void InitialGeneration()
         {
             _lastPlanePoint = _startOfLevelPoint.position;
-            _lastPlanePoint.z -= _generationStartLenght / 2;
+            _lastPlanePoint.z -= _preGenerationStartLenght;
             _currentLevelThreshold = _lastPlanePoint.z;
 
             UpdateLevelGeneration(_startOfLevelPoint.position.z);
@@ -98,7 +99,7 @@ namespace Logic.Generators
             for (int i = 0; i < _placedPlanes.Count; i++)
             {
                 var plane = _placedPlanes[i];
-                if (plane.Position().z <= currentPosition - _generationStartLenght / 2)
+                if (plane.Position().z <= currentPosition - _obstacleGenerationStart / 2)
                 {
                     _placedPlanes.Remove(plane);
                     i--;

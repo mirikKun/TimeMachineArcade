@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5364230417388555348}
   - component: {fileID: 5625431054102651390}
   m_Layer: 0
-  m_Name: CityRoadPlane
+  m_Name: StartCityRoadPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   Obstacles:
   - {fileID: 8075311718015320997, guid: 51e2bafef3a931c4f95544d4422f20bd, type: 3}
   - {fileID: 6699965779172177000, guid: 322ed23a2401ea24d9c103646012a22c, type: 3}
-  EnterIndex: -1
+  EnterIndex: 0
   ExitIndex: 0
 --- !u!1 &3301571332811431776
 GameObject:
