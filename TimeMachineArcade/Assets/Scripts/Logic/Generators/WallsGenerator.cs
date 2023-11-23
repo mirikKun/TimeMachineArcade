@@ -23,9 +23,9 @@ namespace Logic.Generators
             _spread = spread;
         }
 
-        public void GenerateWallsForPlane(Transform plane,float planeLenght)
+        public void GenerateWallsForPlane(Plane plane)
         {
-            while (_leftLastPoint-plane.position.z<planeLenght/2)
+            while (_leftLastPoint-plane.Position().z<plane.Lenght/2)
             {
                 Wall wall = GetRandomWallObject();
                 float wallLenght=CreateWall(plane, wall,_leftLastPoint,-1);
@@ -34,7 +34,7 @@ namespace Logic.Generators
             }
             
             
-            while (_rightLastPoint-plane.position.z<planeLenght/2)
+            while (_rightLastPoint-plane.Position().z<plane.Lenght/2)
             {
                 Wall wall = GetRandomWallObject();
                 float wallLenght=CreateWall(plane, wall,_rightLastPoint,1);
@@ -50,13 +50,13 @@ namespace Logic.Generators
             return wall;
         }
 
-        private float CreateWall(Transform plane, Wall wallPrefab,float lastPoint,int sign)
+        private float CreateWall(Plane plane, Wall wallPrefab,float lastPoint,int sign)
         {
             
-            Wall wall = Object.Instantiate(wallPrefab,plane);
+            Wall wall = Object.Instantiate(wallPrefab,plane.transform);
             wall.SetRandomRotation();
             
-            float x = plane.position.x + sign*(_planeWidth + wall.Size.x / 2f+Random.Range(0,_spread));
+            float x = plane.Position().x + sign*(_planeWidth + wall.Size.x / 2f+Random.Range(0,_spread));
             float z = lastPoint+wall.Size.y/2;
             Vector3 position = new Vector3(x, 0, z);
             wall.SetPosition(position);

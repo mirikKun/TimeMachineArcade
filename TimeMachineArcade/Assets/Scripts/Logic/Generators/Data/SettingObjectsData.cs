@@ -6,5 +6,6 @@ namespace Logic.Generators.Data
     public class SettingObjectsData:ScriptableObject
     {
         public Wall[] Walls;
+        public Plane[] Planes;
     }
 }
