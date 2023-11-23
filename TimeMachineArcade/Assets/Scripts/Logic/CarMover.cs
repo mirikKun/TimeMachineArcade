@@ -23,6 +23,7 @@ namespace Logic
         [SerializeField] private float _rotationLimit;
 
         public event Action OnDrifting;
+        public event Action<int,Vector3> OnObstacleHit;
         public event Action<float> OnMoving;
         private float _currentDrag;
 
@@ -53,7 +54,12 @@ namespace Logic
             OnDriftingInvoking(_forceAngle);
         }
 
-        public void Accelerate(float acceleration)
+        public void OperateHit(float acceleration,int coins,Vector3 position)
+        {
+            Accelerate(acceleration);
+            OnObstacleHit?.Invoke(coins,position);
+        }
+        private void Accelerate(float acceleration)
         {
             _moveForce *= acceleration;
             LimitMoveForce();

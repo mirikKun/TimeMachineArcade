@@ -5,6 +5,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField] private float _acceleration=1;
+    [SerializeField] private int _coinsOnDestroy = 1;
     private ExplosionEffect _explosionEffect;
     private void Start()
     {
@@ -19,7 +20,7 @@ public class Obstacle : MonoBehaviour
         {
             _explosionEffect.ChangeParent(transform.parent);
             _explosionEffect.PlayEffect();
-            carMover.Accelerate(_acceleration);
+            carMover.OperateHit(_acceleration,_coinsOnDestroy,transform.position);
             Destroy(gameObject);
         }
         

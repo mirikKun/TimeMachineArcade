@@ -5068,6 +5068,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceleration: 1.2
+  _coinsOnDestroy: 2
 --- !u!114 &7437510905502810097
 MonoBehaviour:
   m_ObjectHideFlags: 0
