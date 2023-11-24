@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1f6e82a04745b2839600cf338cfde3, type: 3}
+  m_Name: PiratesData
+  m_EditorClassIdentifier: 
+  Walls:
+  - {fileID: 4688645199557256922, guid: 565f43275faf0fa4c92f37b93df61c70, type: 3}
+  - {fileID: 1081820671276758153, guid: 76347f63bfb119b4aa900aecfa7558da, type: 3}
+  - {fileID: 5530345610829960998, guid: 48578d1364f40a5448645eab13adf4ec, type: 3}
+  - {fileID: 3886942312820040642, guid: 3bfdb41081fbdcb49b25ac9d51a16ab0, type: 3}
+  - {fileID: 3272948508012539310, guid: 843c81cce2d986c42bbfd0d5e5f522fb, type: 3}
+  - {fileID: 156321252215566803, guid: b51aa9d44204e55418145cb7996e2083, type: 3}
+  Planes:
+  - {fileID: 5994080747027754959, guid: 52fb506f01eb2fc4fac41b4229b91c86, type: 3}
+  - {fileID: 4984926304895103999, guid: d5d52c23d0d7ad24ab14cfbd5eeddce7, type: 3}
+  - {fileID: -5486499719583825779, guid: 3b35de1e4bc187c48a263258117968f2, type: 3}
+  - {fileID: 4143988645982915282, guid: fa2f251ace2f1254ba87b083e0b56e37, type: 3}
+  - {fileID: -5486499719583825779, guid: 78499821319ae804e8554fd55c02864e, type: 3}
+  WallSpread: 0.5
+  WallOffset: 0.5
+  ObstaclesSpawnRate: 3
+  ObstaclesSpread: 1
+  ObjectsSpawnRange: 12

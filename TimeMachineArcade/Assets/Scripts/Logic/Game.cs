@@ -13,7 +13,7 @@ namespace Logic
       [SerializeField] private UiCoins _uiCoins;
       [SerializeField] private UiTimer _uiTimer;
 
-      private readonly CoinsCounter _coinsCounter= new CoinsCounter();
+      private readonly CoinsCounter _coinsCounter= new();
       private CoinsAnimator _coinsAnimator;
    
       private IGameMediator _mediator;
@@ -23,10 +23,12 @@ namespace Logic
       private bool _timeEnded;
       private GameEndReward _gameEndReward;
       private LevelGenerator _levelGenerator;
+      private TransitionEffect _transitionEffect;
 
       [Inject]
-      private void Construct(IGameMediator mediator,CoinsAnimator coinsAnimator,GameEndReward gameEndReward,LevelGenerator levelGenerator)
+      private void Construct(IGameMediator mediator,TransitionEffect transitionEffect,CoinsAnimator coinsAnimator,GameEndReward gameEndReward,LevelGenerator levelGenerator)
       {
+         _transitionEffect = transitionEffect;
          _coinsAnimator = coinsAnimator;
          _mediator = mediator;
          _levelGenerator = levelGenerator;
@@ -37,6 +39,7 @@ namespace Logic
       {
          _carMover = carMover;
          _carMover.OnObstacleHit += OnObstacleHit;
+         _carMover.OnPortalEnter += ChangeSetting;
 
       }
 
@@ -71,6 +74,14 @@ namespace Logic
          _uiTimer.UpdateTimer(_currentTime);
       }
 
+      private void ChangeSetting()
+      {
+         _transitionEffect.AnimateTransition(_carMover.transform.position);
+         _carMover.MoveToStartPoint();
+         _carMover.GetComponent<WheelTrailsSwitch>().ClearTrails();
+
+         _levelGenerator.ChangeSetting();
+      }
       private void OnObstacleHit(int coins, Vector3 position,bool drifting)
       {
          if (drifting)
@@ -83,13 +94,20 @@ namespace Logic
  
       public void ResetGame()
       {
+         _timeEnded = false;
          _currentTime = 0;
          _coinsCounter.ResetCoins();
          _coinsAnimator.Init(_coinsCounter);
+         
          if(_carMover)
+         {
             _carMover.Reset();
+            _carMover.GetComponent<WheelTrailsSwitch>().ClearTrails();
+         }         
+         _uiTimer.InitTimer(_totalSecondsTime);
          _uiTimer.UpdateTimer(_currentTime);
-
+         
+         _levelGenerator.SetStartSetting();
          _levelGenerator.ResetAll();
       }
       private void EndGame()

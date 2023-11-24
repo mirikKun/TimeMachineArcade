@@ -7,21 +7,25 @@ namespace Logic.Generators
 {
     public class LevelGenerator : MonoBehaviour
     {
-        [SerializeField] private SettingObjectsData _cityObjectsData;
+        [SerializeField] private SettingObjectsData[] _allSettingObjectsData;
+        private SettingObjectsData _currentGenerationData;
 
+        [SerializeField] private TimePortal _timePortal;
+        
         [SerializeField] private Transform _startOfLevelPoint;
         [SerializeField] private float _obstacleGenerationStart = 100;
-        [SerializeField] private float _preGenerationStartLenght = 20;
-        [SerializeField] private float _wallSpread = 0.5f;
-        [SerializeField] private float _wallOffset = 0.5f;
-        [SerializeField] private float _obstaclesSpawnRate = 7;
-        [SerializeField] private float _obstaclesSpread = 0.4f;
         [SerializeField] private float _aheadLenghtOfGeneration = 80;
-        [SerializeField] private float _objectsSpawnRange = 7;
+        [SerializeField] private float _preGenerationStartLenght = 20;
+
+        [SerializeField] private float _portalSpawnPeriod=200;
+        private float _currentPortalSpawnThreshold;
+        
+
         private float _obstaclesAppearingRate;
 
 
         private int _lastPlaneIndex = -1;
+        private int _lastSettingIndex = 0;
         private float _currentLevelThreshold;
         private Vector3 _lastPlanePoint;
         private WallsGenerator _wallsGenerator;
@@ -36,12 +40,35 @@ namespace Logic.Generators
             carMover.OnMoving += UpdateLevelGeneration;
         }
 
+        public void ChangeSetting()
+        {
+            GetNewSetting();
+            ResetAll();
+        }
+
+        public void SetStartSetting()
+        {
+            _lastSettingIndex = 0;
+            _currentGenerationData = _allSettingObjectsData[_lastSettingIndex];
+
+        }
+        private void GetNewSetting()
+        {
+            _lastSettingIndex++;
+            if (_lastSettingIndex >= _allSettingObjectsData.Length)
+            {
+                _lastSettingIndex = 0;
+            }
+
+            SettingObjectsData newSettingObjectsData = _allSettingObjectsData[_lastSettingIndex];
+            _currentGenerationData = newSettingObjectsData;
+        }
 
         private void InitGenerators()
         {
-            _wallsGenerator = new WallsGenerator(_cityObjectsData, _objectsSpawnRange + _wallOffset,
-                _startOfLevelPoint.position.z - _preGenerationStartLenght, _wallSpread);
-            _contentGenerator = new ContentGenerator(_startOfLevelPoint.position.z + _obstacleGenerationStart / 4, _obstaclesSpawnRate, _obstaclesSpread);
+            _wallsGenerator = new WallsGenerator(_currentGenerationData, _startOfLevelPoint.position.z - _preGenerationStartLenght);
+            _contentGenerator = new ContentGenerator(_startOfLevelPoint.position.z + _obstacleGenerationStart / 4,
+            _currentGenerationData.ObstaclesSpawnRate, _currentGenerationData.ObstaclesSpread);
         }
 
         private void InitialGeneration()
@@ -64,16 +91,21 @@ namespace Logic.Generators
                 SpawnPlane(plane);
                 ClearPastPlanes(currentPosition);
                 _lastPlanePoint.z += plane.Lenght/2;
+            }
 
+            if (currentPosition > _currentPortalSpawnThreshold)
+            {
+                Instantiate(_timePortal,_lastPlanePoint,Quaternion.identity, _placedPlanes[^1].transform);
+                _currentPortalSpawnThreshold += _portalSpawnPeriod;
             }
         }
 
         public Plane GetRandomPlane()
         {
-            Plane plane = _cityObjectsData.Planes[Random.Range(0, _cityObjectsData.Planes.Length)];
-            while (_lastPlaneIndex != plane.EnterIndex)
+            Plane plane = _currentGenerationData.Planes[Random.Range(0, _currentGenerationData.Planes.Length)];
+            while (_lastPlaneIndex != plane.EnterIndex&&_currentGenerationData.Planes.Length>1)
             {
-                plane = _cityObjectsData.Planes[Random.Range(0, _cityObjectsData.Planes.Length)];
+                plane = _currentGenerationData.Planes[Random.Range(0, _currentGenerationData.Planes.Length)];
             }
 
             _lastPlaneIndex = plane.ExitIndex;
@@ -84,8 +116,6 @@ namespace Logic.Generators
         private void SpawnPlane(Plane planePrefab)
         {
             Plane plane = Instantiate(planePrefab, _lastPlanePoint, Quaternion.identity);
-           Debug.Log(plane);
-           Debug.Log(_wallsGenerator);
             _wallsGenerator.GenerateWallsForPlane(plane);
             _contentGenerator.GenerateContent(plane);
             _placedPlanes.Add(plane);
@@ -102,8 +132,10 @@ namespace Logic.Generators
                 Destroy(plane.gameObject);
                 
             }
+
             InitGenerators();
             InitialGeneration();
+            _currentPortalSpawnThreshold = _portalSpawnPeriod;
         }
 
         private void ClearPastPlanes(float currentPosition)

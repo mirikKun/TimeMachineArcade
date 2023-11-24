@@ -34,6 +34,7 @@ public class CoinsAnimator : MonoBehaviour
 
     public void PlayCoinsAnimation(int coins, Vector3 position)
     {
+        Debug.Log(coins);
         for (int i = 0; i < coins; i++)
         {
             float duration = _animationTime.RandomValueInRange;

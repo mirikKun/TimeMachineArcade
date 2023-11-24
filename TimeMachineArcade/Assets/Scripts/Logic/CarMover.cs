@@ -25,6 +25,8 @@ namespace Logic
         public bool _drifting;
         public event Action<int,Vector3,bool> OnObstacleHit;
         public event Action<float> OnMoving;
+        public event Action OnPortalEnter;
+        
         private float _currentDrag;
 
         private Vector3 _moveForce;
@@ -54,17 +56,33 @@ namespace Logic
             OnDriftingInvoking(_forceAngle);
         }
 
+        public void Reset()
+        {
+            _moveForce = Vector3.zero;
+            _transform.rotation = Quaternion.identity;
+            MoveToStartPoint();
+            _currentDrag = _drag;
+        }
+
+        public void MoveToStartPoint()
+        {
+            _transform.position = _startPosition;
+
+        }
         public void OperateHit(float acceleration,int coins,Vector3 position)
         {
             Accelerate(acceleration);
             OnObstacleHit?.Invoke(coins,position,_drifting);
         }
+
+        public void EnterPortal() => OnPortalEnter?.Invoke();
+
         private void Accelerate(float acceleration)
         {
             _moveForce *= acceleration;
             LimitMoveForce();
         }
-    
+
         private void CarMoving()
         {
             _moveForce += GetForwardForce();
@@ -109,14 +127,6 @@ namespace Logic
             _moveForce = Vector3.ClampMagnitude(_moveForce, _maxSpeed);
         }
 
-        public void Reset()
-        {
-            _moveForce = Vector3.zero;
-            _transform.rotation = Quaternion.identity;
-            _transform.position = _startPosition;
-            _currentDrag = _drag;
-        }
-
         private void CalculateDrag(float forceAngle)
         {
             float forceDiff = forceAngle / _angleToMinDrag;
@@ -139,6 +149,7 @@ namespace Logic
                 _drifting = false;
             }
         }
+        
 
         private float TractionDelta() => _traction * Time.deltaTime;
 

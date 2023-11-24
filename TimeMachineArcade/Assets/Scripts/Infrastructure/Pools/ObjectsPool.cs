@@ -17,9 +17,7 @@ namespace Pools
 
         private readonly List<T> _elements = new();
         private List<T> _activeElements = new();
-
-        public List<T> ActiveElements => _activeElements;
-
+        
         private void GenerateNewElement()
         {
             T newElements = Object.Instantiate(_prefab, _parent);
@@ -29,7 +27,7 @@ namespace Pools
 
         public  ObjectsPool(T prefab, Transform parent, int maxCount)
         {
-            if (_prefab == null)
+            if (prefab == null)
             {
                 Debug.LogError("Need a reference to the destination prefab");
             }

@@ -14475,7 +14475,7 @@ Transform:
   m_GameObject: {fileID: 8457324062357889411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 3.6415482, y: -0, z: 6.8371124}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7904118480342827009}
@@ -14509,7 +14509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _acceleration: 1.2
-  _coinsOnDestroy: 1
+  _coinsOnDestroy: 3
 --- !u!114 &2456261433300296802
 MonoBehaviour:
   m_ObjectHideFlags: 0

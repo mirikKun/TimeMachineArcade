@@ -13,14 +13,14 @@ namespace Logic.Generators
         private float _rightLastPoint;
         
         
-        public WallsGenerator(SettingObjectsData settingObjectsData,float planeWidth, float start,float spread)
+        public WallsGenerator(SettingObjectsData settingObjectsData, float start)
         {
             _settingObjectsData = settingObjectsData;
-            _planeWidth = planeWidth;
+            _planeWidth = settingObjectsData.ObjectsSpawnRange+settingObjectsData.WallOffset;
             _leftLastPoint = start;
             _rightLastPoint = start;
     
-            _spread = spread;
+            _spread = settingObjectsData.WallSpread;
         }
 
         public void GenerateWallsForPlane(Plane plane)

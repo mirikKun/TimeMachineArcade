@@ -5830,6 +5830,7 @@ GameObject:
   - component: {fileID: 8500334246748050371}
   - component: {fileID: 2966283270799667669}
   - component: {fileID: 7568629777110270876}
+  - component: {fileID: 370562443323131015}
   m_Layer: 0
   m_Name: PlayerCar
   m_TagString: Untagged
@@ -5945,13 +5946,14 @@ MonoBehaviour:
   _moveSpeed: 6
   _maxSpeed: 9
   _drag: 0.976
-  _steerAngle: 180
+  _steerAngle: 160
   _traction: 0.01
   _angleToMinDrag: 60
   _angleToDriftProve: 30
   _minSpeedToDrift: 3
   _xPositionLimit: 9.8
   _rotationLimit: 90
+  _drifting: 0
 --- !u!114 &8500334246748050371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5995,3 +5997,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &370562443323131015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8364898375180139633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb4cdf5fb61bff47bf67a1e6f283184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
